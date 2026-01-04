@@ -1,0 +1,14 @@
+"tablescraper-selected-row"
+""
+""
+"As your organization’s needs change, your licensing needs evolve. When you update
+        licenses, you want your production and sandbox orgs to be in sync. Often you can refresh
+        your sandbox to ensure that its licensing information matches your production org’s. Or, to
+        ensure that your sandbox orgs receive updated license information, you can use the Match
+        Production Licenses to Sandbox tool."
+"When you use the Match Production Licenses to Sandbox tool, all provisioned changes are
+            matched in the production org."
+"To match licenses to a sandbox org, make sure that the status of the related production
+            org is active. Then log in to your sandbox. From Setup, go to Company Information, and
+            select ."
+""

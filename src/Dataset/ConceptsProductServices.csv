@@ -1,0 +1,50 @@
+"tablescraper-selected-row","tablescraper-selected-row href","slds-assistive-text","slds-breadcrumb__item","slds-breadcrumb__item href","slds-breadcrumb__item 2","slds-breadcrumb__item href 2","slds-breadcrumb__item 3","slds-breadcrumb__item href 3","slds-text-heading_large","slds-text-longform","slds-text-title_caps","slds-cell-wrap","slds-cell-wrap 2","slds-cell-wrap href","slds-cell-wrap 3","slds-cell-wrap 4","slds-text-heading_medium","slds-cell-wrap 5","slds-cell-wrap 6","slds-cell-wrap 7","slds-cell-wrap 8","slds-cell-wrap 9","slds-cell-wrap 10","slds-cell-wrap 11","slds-cell-wrap 12","slds-cell-wrap 13","slds-cell-wrap 14","slds-cell-wrap 15","slds-cell-wrap 16","slds-cell-wrap 17","filepath","slds-cell-wrap 18","slds-text-heading_medium 2","slds-section","slds-cell-wrap 19","slds-cell-wrap 20","slds-cell-wrap 21","slds-cell-wrap 22","slds-cell-wrap 23","slds-cell-wrap 24","slds-cell-wrap 25","slds-cell-wrap 26","slds-cell-wrap 27","slds-cell-wrap 28","slds-cell-wrap href 2","slds-text-heading_medium 3","slds-cell-wrap 30","slds-cell-wrap 32","slds-cell-wrap 33","slds-cell-wrap 34","slds-cell-wrap 35","slds-cell-wrap 36","slds-cell-wrap 37","slds-cell-wrap 38","slds-cell-wrap 39","slds-cell-wrap 40","slds-cell-wrap 41","slds-cell-wrap 42","slds-cell-wrap 43","slds-cell-wrap 44","slds-cell-wrap 45","slds-cell-wrap 46","slds-cell-wrap 47","slds-cell-wrap 48","slds-cell-wrap 49"
+"Concepts, Products, and Services","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""
+"","https://help.salesforce.com/s?language=en_US","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""
+"","","You are here:","Salesforce Help","https://help.salesforce.com/s/?language=en_US","Docs","https://help.salesforce.com/s/products?language=en_US","Get Started with Salesforce","https://help.salesforce.com/s/articleView?id=xcloud.basics_welcome_salesforce_users.htm&language=en_US&type=5","Concepts, Products, and Services","As you get started with Salesforce, it’s helpful to learn some key concepts and terms.
+    They come up frequently when you interact with the product, our documentation, and our service
+    professionals. The concepts and terms here help you understand how Salesforce works.","Required Editions","Available in: Salesforce Classic ()","not available in all
+                orgs","https://help.salesforce.com/s/articleView?id=sf.overview_edition_lex_only.htm&language=en_US&type=5","Available in:","All Editions","Concepts","Concept","Definition","Cloud","A Salesforce name for a loose federation of features that help you accomplish
+                certain types activities, such as selling products or supporting your customers. Two
+                common examples are  and .","Service Cloud","Sales Cloud","Cloud Computing","Technology that enables Internet-based services that let you sign up and log in
+                through a browser. Salesforce delivers its service in the cloud. Other familiar
+                cloud computing services include Google Apps and Amazon.com.","Software as a Service (SaaS)","Software delivered not by traditional means (such as on disk) but in the cloud,
+                as a service. There’s nothing to download or install, and updates are
+                automatic.","Trust","A Salesforce term for its company-wide commitment to building and delivering
+                the most secure, fast, and reliable cloud-based service
+                    available.","is a systems status
+                  website that provides Salesforce customers and the community access to real-time
+                  and historical system performance information and updates. It also lists incident
+                  reports and maintenance schedules across all its key system
+                    components.","trust.salesforce.com","is free to all
+                  members of the Salesforce community.","Products and Services","Salesforce includes these products and services.","Product or Service","Description","Salesforce Applications","Salesforce includes prebuilt applications (or “apps”) for
+                customer relationship management (CRM) ranging from sales force automation to
+                partner relationship management, marketing, and customer service.","Lightning Platform","The Lightning platform is the first platform as a service (PaaS). Developers
+                can create and deliver any kind of business application entirely on demand and
+                without software. The platform also includes easy to use point-and-click
+                customization tools to help you create solutions for your unique business
+                requirements, without any programming experience.","AppExchange","AppExchange is a marketplace featuring hundreds of cloud applications created
+                by Salesforce customers, developers, and partners. Many of the applications are free
+                and all of them are pre-integrated with Salesforce, enabling you to easily and
+                efficiently add functionality.","Salesforce.com Community","Salesforce provides training, support, consulting, events, best practices, and
+                discussion boards to help you be successful. Visit .","https://trailhead.salesforce.com/en/trailblazer-community/feed/","Terms","Term","App","Short for . A collection of components such as tabs, reports,
+                dashboards, and Visualforce pages that address specific business needs. Salesforce
+                provides standard apps, which you can customize, such as Sales and Service. You can
+                customize the standard apps to match the way you work.","application","Edition","One of several bundles of Salesforce products and services, each geared toward
+                a different set of business needs. All Salesforce editions share the look and feel,
+                but they vary by feature, functionality, and pricing.","Object","A definition of a specific type of information you can store in Salesforce. For
+                example, the Case object lets you store information about customer inquiries. For
+                each object, your organization has multiple, specific records.","Salesforce comes
+                  with lots of standard objects, but you can create custom objects, as
+                well.","Organization","A deployment of Salesforce that has a defined set of licensed users. Your
+                organization includes all your data and applications.","Record","A collection of fields that store information about a specific item of a
+                specific type. A record is an object, such as a contact, an account, or an
+                opportunity. For example, you can have a contact record to store information about
+                Joe Smith, and a case record store information about his training inquiry.","Release","Salesforce releases new products and features three times per year, and we
+                identify releases by season—Winter, Spring, and Summer—along with the
+                calendar year.  Winter ’15.","Example:","For every Salesforce release,
+                  the Salesforce release notes include new features and products that are generally
+                  available or in beta release. They also describe all changes to existing features
+                  and products. You can find the release notes when you search for “Release
+                  Notes” in the Salesforce Help.","Salesforce","The name of the Salesforce cloud computing CRM service and the company
+                name."

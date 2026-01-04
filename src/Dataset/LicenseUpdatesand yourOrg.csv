@@ -1,0 +1,26 @@
+"tablescraper-selected-row","tablescraper-selected-row 2"
+"",""
+"",""
+"When you purchase Salesforce, you receive licenses, permissions, and profiles that
+        shape your org and what users can do in it. You can also create permission sets to help with
+        permission management. Understand the impact of license updates on permissions in your
+        profiles and permission sets.",""
+"Changes to your org impact its functionality and your users. For instance, what happens
+            if you upgrade your Salesforce edition? Or maybe you decide to purchase an add-on
+            license. Let’s say that your org:",""
+"Upgraded from Professional Edition to Enterprise Edition","Uses Service Cloud, and you purchased the additional functionality that the SOS
+                add-on offers"
+"After you upgrade:",""
+"You want to use approval processes. Review the relevant user and object-level
+                permissions for users who are approval admins.","Ensure that you enable related features for the SOS add-on. Give users who need the
+                add-on the correct permissions. For best results, use Salesforce Help to set up your
+                add-on. For example, you must enable Omni-Channel in your org before you set up
+                SOS."
+"Each org is different, and each user has different requirements. When you purchase an
+            upgrade or add-on, we suggest reviewing help topics and videos in Salesforce Help and
+            checking user permissions.",""
+"To see which profile and permission sets that a user is assigned, from Setup, in the
+            Quick Find box, enter . Click the name of the user whose
+            information you want to view. To check the assigned profile, look for Profile. For
+            permission set information, click  or .","Users"
+"",""

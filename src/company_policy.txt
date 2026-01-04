@@ -1,0 +1,17 @@
+Work Experience
+
+Software Engineer – ABC Technologies
+Jan 2022 – Present
+
+Designed and developed REST APIs using Node.js and TypeScript
+
+Implemented RAG-based solutions using MongoDB and LangChain
+
+Improved API response time by 30% through query optimization
+
+Collaborated with QA and DevOps teams for CI/CD deployment
+
+Education
+
+B.E. / B.Tech in Computer Science
+XYZ University | 2018 – 2022
