@@ -1,0 +1,20 @@
+{
+  "dynamic": false,
+  "fields": {
+    "embedding": {
+      "type": "knn",
+      "dimensions": 1024,
+      "similarity": "cosine"
+    },
+    "content": {
+      "type": "string",
+      "analyzer": "lucene.standard"
+    },
+    "metadata": {
+      "type": "document",
+      "fields": {
+        "source": { "type": "string", "analyzer": "lucene.keyword" }
+      }
+    }
+  }
+}

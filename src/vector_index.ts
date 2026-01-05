@@ -145,7 +145,8 @@ export async function createVectorIndexesFromDataset() {
 
     // If Atlas credentials are present attempt to create server-side vector index
     if (atlasPublic && atlasPrivate && atlasProjectId) {
-      const dims = vectors[0]?.length || 1536;
+      const dims = vectors[0]?.length || 1024;
+      console.log(`[INFO] Detected embedding dimensions: ${dims} — creating Atlas index for collection ${collName}`);
       await createAtlasSearchIndexIfRequested({
         projectId: atlasProjectId,
         publicKey: atlasPublic,
