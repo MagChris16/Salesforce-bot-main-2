@@ -10,6 +10,13 @@ const indexName = process.env.VECTOR_INDEX_NAME || `${collName}_vector_search`;
 export type Filter = { path: string; value: string };
 
 export async function vectorSearch(queryVector: number[], k = 5, filter?: Filter) {
+  const vectorEnabled = (process.env.VECTOR_SEARCH_ENABLED || "true").toLowerCase() === "true";
+  if (!vectorEnabled) {
+    const msg = "Vector search disabled via VECTOR_SEARCH_ENABLED=false";
+    console.log("[INFO] ", msg);
+    throw new Error(msg);
+  }
+
   const client = new MongoClient(mongoUri as string);
   await client.connect();
   try {

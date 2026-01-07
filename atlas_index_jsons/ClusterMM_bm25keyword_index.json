@@ -1,0 +1,23 @@
+{
+  "collectionName": "ClusterMM",
+  "database": "OnboardIQ_bot",
+  "name": "bm25_index",
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "content": {
+        "type": "string",
+        "analyzer": "lucene.standard"
+      },
+      "metadata": {
+        "type": "document",
+        "fields": {
+          "source": {
+            "type": "string",
+            "analyzer": "lucene.keyword"
+          }
+        }
+      }
+    }
+  }
+}
