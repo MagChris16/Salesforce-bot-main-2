@@ -24,7 +24,7 @@ async function createAtlasSearchIndexIfRequested(opts: {
   const body = {
     collectionName,
     database: dbName,
-    name: `${collectionName}_vector_search`,
+    name: process.env.VECTOR_INDEX_NAME || `${collectionName}_vector_search`,
     // Minimal mapping for vector search
     mappings: {
       dynamic: false,

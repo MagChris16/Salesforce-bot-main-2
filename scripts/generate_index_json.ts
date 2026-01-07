@@ -19,7 +19,7 @@ function makeIndexBody(dbName: string, collectionName: string, dims = 1024) {
   return {
     collectionName,
     database: dbName,
-    name: `${collectionName}_vector_search`,
+    name: process.env.VECTOR_INDEX_NAME || `${collectionName}_vector_search`,
     mappings: {
       dynamic: false,
       fields: {
@@ -62,7 +62,7 @@ curl -u "<PUBLIC_KEY>:<PRIVATE_KEY>" -H "Content-Type: application/json" \
   -X POST "https://cloud.mongodb.com/api/atlas/v1.0/groups/<PROJECT_ID>/fts/indexes" \
   -d @<FILE>.json
 
-Each JSON already uses "embedding" as the vector field and "dimensions": 1536.
+Each JSON already uses "embedding" as the vector field and "dimensions": 1024.
 `;
   fs.writeFileSync(path.join(OUT_DIR, "README.md"), readme, "utf8");
 
