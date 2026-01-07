@@ -1,0 +1,18 @@
+{
+  "collectionName": "ClusterMM",
+  "database": "OnboardIQ_bot",
+  "name": "vector_index",
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "content": {
+        "type": "string"
+      },
+      "embedding": {
+        "type": "knn",
+        "dimensions": 1024,
+        "similarity": "cosine"
+      }
+    }
+  }
+}

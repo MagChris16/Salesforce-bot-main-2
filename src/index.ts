@@ -2,11 +2,14 @@ import * as readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
 import * as dotenv from "dotenv";
 
+// Load environment variables from .env file as early as possible so imported
+// modules that read `process.env` at import-time see values from `.env`.
+// Use `override: true` so the project `.env` takes precedence over any
+// existing shell environment variables (helps during local development).
+dotenv.config({ override: true });
+
 import { loadAndSplitFile } from "./loader";
 import { RAGService } from "./rag";
-
-// Load environment variables from .env file
-dotenv.config();
 
 // Use a glob pattern to read all files in the Dataset folder
 const POLICY_FILE_PATH = "./src/Dataset/*";
@@ -82,8 +85,25 @@ async function main() {
     try {
       // 6. Query the RAG Service
       console.log("[DEBUG-STEP-6] Processing query through RAG chain...");
-      const answer = await ragService.query(question);
+
+      // Central guard: check retrieval flags to avoid silent LLM fallbacks
+      const vectorEnabled = (process.env.VECTOR_SEARCH_ENABLED || "true").toLowerCase() === "true";
+      const bm25Enabled = (process.env.BM25_SEARCH_ENABLED || "true").toLowerCase() === "true";
+      if (!vectorEnabled && !bm25Enabled) {
+        console.log("\nBot: Retrieval searches are disabled via environment variables. Enable at least one of VECTOR_SEARCH_ENABLED or BM25_SEARCH_ENABLED to allow retrieval-based answers.\n");
+        continue;
+      }
+
+      const result = await ragService.query(question);
       console.log("[DEBUG] ✓ Query completed");
+
+      const answer = typeof result === "string" ? result : result.answer;
+      const source = (result && typeof result !== "string") ? result.source : undefined;
+
+      // Log retrieval source if available
+      if (source) {
+        console.log(`[INFO] Answer retrieval source: ${source}`);
+      }
 
       // 7. Print the Answer
       console.log(`\nBot: ${answer}\n`);

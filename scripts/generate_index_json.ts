@@ -34,6 +34,26 @@ function makeIndexBody(dbName: string, collectionName: string, dims = 1024) {
   };
 }
 
+function makeBM25Body(dbName: string, collectionName: string) {
+  return {
+    collectionName,
+    database: dbName,
+    name: process.env.BM25_INDEX_NAME || `${collectionName}_bm25_keyword`,
+    mappings: {
+      dynamic: false,
+      fields: {
+        content: { type: "string", analyzer: "lucene.standard" },
+        metadata: {
+          type: "document",
+          fields: {
+            source: { type: "string", analyzer: "lucene.keyword" }
+          }
+        }
+      }
+    }
+  };
+}
+
 async function main() {
   ensureOutDir();
 
@@ -45,12 +65,20 @@ async function main() {
     process.exit(1);
   }
 
-  // Single index for the whole collection (ClusterMM)
+  // Single collection index files for the whole collection (ClusterMM)
   const collName = baseCollection;
-  const body = makeIndexBody(dbName, collName, 1024);
-  const outPath = path.join(OUT_DIR, `${collName}_index.json`);
-  fs.writeFileSync(outPath, JSON.stringify(body, null, 2), "utf8");
-  console.log(`Wrote single index JSON for collection: ${collName} -> ${outPath}`);
+
+  // Vector index JSON (full API body)
+  const vectorBody = makeIndexBody(dbName, collName, 1024);
+  const vectorOutPath = path.join(OUT_DIR, `${collName}_vector_index.json`);
+  fs.writeFileSync(vectorOutPath, JSON.stringify(vectorBody, null, 2), "utf8");
+  console.log(`Wrote vector index JSON for collection: ${collName} -> ${vectorOutPath}`);
+
+  // BM25 keyword index JSON (full API body)
+  const bm25Body = makeBM25Body(dbName, collName);
+  const bm25OutPath = path.join(OUT_DIR, `${collName}_bm25keyword_index.json`);
+  fs.writeFileSync(bm25OutPath, JSON.stringify(bm25Body, null, 2), "utf8");
+  console.log(`Wrote BM25 keyword index JSON for collection: ${collName} -> ${bm25OutPath}`);
 
   // Also write a small README
   const readme = `This directory contains Atlas Search index JSON bodies (one per collection)

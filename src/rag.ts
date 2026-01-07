@@ -8,6 +8,8 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { combineDocuments } from "./utils";
+import { textSearch } from "./search/text_search";
+import { vectorSearch } from "./search/vector_search";
 import { ChatOpenAI } from "@langchain/openai";
 
 
@@ -140,16 +142,76 @@ export class RAGService {
     this.retriever = new SimpleMongoRetriever(this.collection, embeddings, 6);
   }
 
-  public async query(question: string): Promise<string> {
-    if (!this.retriever) return "Vector store not initialized.";
+  public async query(question: string): Promise<{ answer: string; source?: string }> {
+    if (!this.retriever) return { answer: "Vector store not initialized.", source: "none" };
 
     if (!this.chain) {
       this.chain = RunnableSequence.from([
         {
           // Retrieve context and pass the question through
           context: async (input: { question: string }) => {
-            const docs = await this.retriever!._getRelevantDocuments(input.question);
+            const bm25Enabled = (process.env.BM25_SEARCH_ENABLED || "true").toLowerCase() === "true";
+            const vectorEnabled = (process.env.VECTOR_SEARCH_ENABLED || "true").toLowerCase() === "true";
+
+            let docs: any[] = [];
+            let retrievalSource = "none";
+
+            // If both enabled, run both and merge results (BM25 + vector)
+            if (bm25Enabled && vectorEnabled) {
+              const topK = this.retriever ? (this.retriever as any).topK || 6 : 6;
+              // Run both in parallel
+              const [bm25Hits, vectorDocs] = await Promise.allSettled([
+                textSearch(input.question, "content", topK),
+                this.retriever!._getRelevantDocuments(input.question),
+              ]);
+
+              const bm25Results: any[] = bm25Hits.status === "fulfilled" ? (bm25Hits.value as any[]) : [];
+              const vectorResults: any[] = vectorDocs.status === "fulfilled" ? (vectorDocs.value as any[]) : [];
+
+              console.log(`[DEBUG] BM25 hits=${bm25Results.length} | vector hits=${vectorResults.length}`);
+
+              // Normalize and merge: bm25 has {content, metadata}, vector has {pageContent, metadata}
+              const merged: any[] = [];
+              const seen = new Set<string>();
+
+              for (const b of bm25Results) {
+                const key = (b.content || "").slice(0, 200);
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  merged.push({ pageContent: b.content, metadata: b.metadata || {} });
+                }
+              }
+              for (const v of vectorResults) {
+                const key = (v.pageContent || "").slice(0, 200);
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  merged.push({ pageContent: v.pageContent, metadata: v.metadata || {} });
+                }
+              }
+
+              docs = merged;
+              retrievalSource = "bm25+vector";
+            } else if (bm25Enabled) {
+              try {
+                const hits = await textSearch(input.question, "content", this.retriever ? (this.retriever as any).topK || 6 : 6);
+                docs = hits.map((h: any) => ({ pageContent: h.content, metadata: h.metadata || {} }));
+                retrievalSource = "bm25";
+                console.log(`[DEBUG] Used BM25 search - hits=${docs.length}`);
+              } catch (err) {
+                console.warn("[WARN] BM25 search failed:", err);
+              }
+            } else if (vectorEnabled) {
+              try {
+                docs = await this.retriever!._getRelevantDocuments(input.question);
+                retrievalSource = "vector";
+                console.log(`[DEBUG] Used vector retriever - hits=${docs.length}`);
+              } catch (err) {
+                console.warn("[WARN] Vector retriever failed:", err);
+              }
+            }
+
             const context = combineDocuments(docs);
+            (this as any)._lastRetrievalSource = retrievalSource;
             console.log(`[DEBUG] Found ${docs.length} relevant chunks.`);
             return { context };
           },
@@ -185,10 +247,11 @@ export class RAGService {
         this.memory = this.memory.slice(-this.maxMemoryTurns * 2);
       }
 
-      return answer;
+      const source = (this as any)._lastRetrievalSource || undefined;
+      return { answer, source };
     } catch (error) {
       console.error("❌ Chain Error:", error);
-      return "An error occurred while processing your request.";
+      return { answer: "An error occurred while processing your request.", source: "error" };
     }
   }
 
